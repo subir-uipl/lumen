@@ -1,0 +1,20 @@
+---
+// A photo mounted as a white-bordered print. `tilt` rotates the print (and its WebGL photo with it);
+// `caption` is handwritten into the wide bottom border, polaroid style.
+import Media from './Media.astro';
+interface Props {
+  id: number; w?: number; h?: number; alt: string;
+  tilt?: number; class?: string; mediaClass?: string;
+  border?: number; bottom?: number; caption?: string; cursor?: string | false;
+}
+const { id, w, h, alt, tilt = 0, class: cls = '', mediaClass = '', border = 10, bottom, caption, cursor = 'View' } = Astro.props;
+const pb = bottom ?? (caption ? 64 : border);
+// centre the handwritten caption in the deep bottom border (it renders about 24px tall)
+const capTop = Math.max(6, (pb - 26) / 2);
+---
+<div class:list={['print', cls]} data-tilt={tilt || undefined}
+  style={`--pw:${border}px;--pb:${pb}px;${tilt ? `transform:rotate(${tilt}deg);` : ''}`}>
+  <Media id={id} w={w} h={h} alt={alt} class={mediaClass} cursor={cursor} />
+  {caption && <p class="hand absolute left-1 right-1 truncate text-[22px] text-ink/75" style={`top:calc(100% + ${capTop}px)`}>{caption}</p>}
+  <slot />
+</div>

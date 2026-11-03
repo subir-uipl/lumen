@@ -1,0 +1,17 @@
+---
+// A round rubber ink stamp with text set around the ring.
+interface Props { class?: string; text?: string; center?: string; rot?: number; size?: number }
+const { class: cls = '', text = 'LUMEN STUDIO · LISBON · EST. 2014 · ', center = '✶', rot = -12, size = 132 } = Astro.props;
+const id = `stamp-${Math.round(Math.random() * 1e6)}`;
+---
+<svg class:list={['pointer-events-none select-none', cls]} style={`transform:rotate(${rot}deg)`} width={size} height={size} viewBox="0 0 120 120" aria-hidden="true">
+  <defs><path id={id} d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0" /></defs>
+  <g fill="none" stroke="#c4453f" opacity=".78">
+    <circle cx="60" cy="60" r="57" stroke-width="2" />
+    <circle cx="60" cy="60" r="31" stroke-width="1.2" />
+  </g>
+  <text fill="#c4453f" opacity=".82" font-family="Inter Tight, sans-serif" font-size="10.5" font-weight="600" letter-spacing="2.2">
+    <textPath href={`#${id}`}>{text}</textPath>
+  </text>
+  <text x="60" y="69" text-anchor="middle" fill="#c4453f" opacity=".82" font-family="Instrument Serif, serif" font-size="28">{center}</text>
+</svg>

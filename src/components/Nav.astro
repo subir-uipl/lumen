@@ -1,0 +1,46 @@
+---
+// The nav reads like words written along the top of a notebook page: blue-ink links,
+// a pen underline that draws in on hover, and the current page circled in red pen.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const { page } = Astro.props;
+const links = [
+  { href: `${base}/#work`, label: 'Work', key: 'work' },
+  { href: `${base}/about`, label: 'About', key: 'about' },
+  { href: `${base}/contact`, label: 'Contact', key: 'contact' }
+];
+// hand-drawn strokes (viewBox 0 0 100 24); stretched to each word's width
+const underline = 'M2 15 C 20 11, 45 17, 70 12 S 92 13, 98 10';
+const circle = 'M52 3 C 22 1, 4 6, 4 13 C 4 21, 30 23, 54 22 C 80 21, 97 17, 96 10 C 95 4, 72 1, 44 4';
+---
+<header id="nav" class="site-nav fixed inset-x-0 top-0 z-40">
+  <div class="flex items-center justify-between px-5 py-4 md:px-12 md:py-5">
+    <a href={`${base}/`} class="font-display text-[30px] leading-none tracking-tight text-ink" aria-label="Lumen home">Lumen<span class="align-super text-[11px] tracking-normal">®</span></a>
+
+    <nav class="hidden items-center gap-10 md:flex" aria-label="Main">
+      {links.map(l => (
+        <a href={l.href} class:list={['nav-link hand relative px-1 text-[27px]', { 'is-current': l.key === page }]} aria-current={l.key === page ? 'page' : undefined}>
+          {l.label}
+          <svg class="nav-underline" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d={underline} pathLength="1" /></svg>
+          {l.key === page && <svg class="nav-circle" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d={circle} /></svg>}
+        </a>
+      ))}
+    </nav>
+
+    <a href={`${base}/contact`} class="nav-cta hand relative hidden text-[27px] md:block">
+      <span class="relative z-[1]">book a shoot →</span>
+      <span class="nav-highlight" aria-hidden="true"></span>
+    </a>
+
+    <button id="menuBtn" class="hand text-[26px] md:hidden" aria-expanded="false" aria-controls="mobileMenu">menu</button>
+  </div>
+</header>
+
+<!-- mobile menu: a fresh page of the notebook -->
+<div id="mobileMenu" class="fixed inset-0 z-[45] flex flex-col justify-between bg-paper px-6 pb-10 pt-28 opacity-0 pointer-events-none" aria-hidden="true"
+  style="background-image:linear-gradient(to bottom, transparent 47px, rgba(58,92,150,.13) 47px, rgba(58,92,150,.13) 48px);background-size:100% 48px">
+  <nav class="flex flex-col gap-1" aria-label="Mobile">
+    <a href={`${base}/`} class="hand text-[64px] leading-[1.1]">Home</a>
+    {links.map(l => <a href={l.href} class="hand text-[64px] leading-[1.1]">{l.label}</a>)}
+  </nav>
+  <p class="hand text-[24px] text-ink/50">Light, kept.</p>
+</div>

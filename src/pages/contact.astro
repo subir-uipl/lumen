@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import Print from '../components/Print.astro';
+import Tape from '../components/Tape.astro';
+import Clip from '../components/Clip.astro';
+import Stamp from '../components/Stamp.astro';
+import { STUDIO, SOCIAL } from '../data/site.js';
+const types = ['portrait', 'editorial', 'travel', 'architecture', 'wedding', 'something else'];
+const budgets = ['under €2k', '€2–5k', '€5–10k', '€10k+'];
+const faqs = [
+  { q: 'Do you travel for shoots?', a: 'Yes — about half of our work is outside Portugal. Travel is quoted at cost, and we keep crews small to keep it sensible.' },
+  { q: 'How soon will we see the photos?', a: 'A first edit within ten days, and the final retouched set within three weeks. Rush delivery is possible for editorial.' },
+  { q: 'Can we order prints?', a: 'Always. We print in-house on archival cotton paper, framed or unframed, from postcard size up to one metre.' }
+];
+---
+<Base title="Contact — Lumen photography studio" description="Book a shoot or ask a question. Lumen is based in Lisbon and works worldwide." page="contact">
+
+  <!-- ============ PAGE 01 · HERO ============ -->
+  <section class="relative px-5 pt-24 md:px-12 md:pt-28">
+    <div class="entry mb-6 md:mb-8">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 01 <span class="hidden text-ink/45 md:inline">— a letter to the studio</span></p>
+      <p class="hand text-[19px] text-ink/50 md:text-[24px]">replies within 2 days</p>
+    </div>
+    <div class="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <h1 class="font-display text-[19vw] leading-[.84] tracking-[-.03em] md:text-[11vw]" aria-label="Say hello. Let’s talk light.">
+        <span class="block overflow-hidden pb-[.2em] -mb-[.2em] pr-[.04em]" aria-hidden="true"><span class="block" data-hero-in>Say hello.</span></span>
+        <span class="block overflow-hidden pb-[.2em] -mb-[.2em] pl-[.8em] pr-[.06em]" aria-hidden="true"><em class="block" data-hero-in>Let’s talk light.</em></span>
+      </h1>
+      <p class="hand max-w-[260px] rotate-[-3deg] text-[26px] md:pb-[2vw]" data-reveal="1">just fill in the blanks below — no forms, just a note ↓</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 02 · THE LETTER + DETAILS ============ -->
+  <section class="relative px-5 py-20 md:px-12 md:py-28">
+    <div class="grid items-start gap-20 md:grid-cols-12 md:gap-10">
+
+      <div class="relative md:col-span-8 md:rotate-[-.5deg]">
+        <Clip class="-top-8 left-10" rot={-4} size={78} />
+        <Tape class="-right-4 -top-2 hidden md:block" rot={22} w={130} tone="mint" />
+        <div class="notepaper-shadow">
+          <div class="notepaper letter-paper pl-[66px] pr-5 pb-[48px] pt-[96px] md:pb-[56px] md:pl-[100px] md:pr-14 md:pt-[112px]">
+            <form data-contact-form class="letter" novalidate>
+              <p>Dear Lumen,</p>
+              <p>my name is <input class="blank" style="--w:9ch" name="name" autocomplete="name" required aria-label="Your name" placeholder="your name" />
+                and you can write back to me at <span class="whitespace-nowrap"><input class="blank" style="--w:14ch" name="email" type="email" autocomplete="email" required aria-label="Email" placeholder="you@email.com" />.</span></p>
+              <p>I’m with <input class="blank" style="--w:13ch" name="company" autocomplete="organization" aria-label="Company (optional)" placeholder="company, if any" />
+                and I’m thinking of a shoot around <span class="whitespace-nowrap"><input class="blank" style="--w:9ch" name="when" autocomplete="off" aria-label="When are you thinking?" placeholder="next spring" />.</span></p>
+              <p>It’s a
+                <span class="picks" data-chips="type" role="group" aria-label="What would you like to shoot?">{types.map((t, i) => <><button type="button" class="pick" aria-pressed={i === 0 ? 'true' : 'false'}>{t}</button>{i < types.length - 1 && <span class="pick-sep" aria-hidden="true"> / </span>}</>)}</span>
+                shoot,</p>
+              <p>and the budget is roughly
+                <span class="picks" data-chips="budget" role="group" aria-label="Budget">{budgets.map((b, i) => <><button type="button" class="pick" aria-pressed={i === 1 ? 'true' : 'false'}>{b}</button>{i < budgets.length - 1 && <span class="pick-sep" aria-hidden="true"> / </span>}</>)}</span>.</p>
+              <input type="hidden" name="type" value={types[0]} />
+              <input type="hidden" name="budget" value={budgets[1]} />
+              <p>Here’s the idea:</p>
+              <textarea class="blank-area" name="message" rows="4" required aria-label="Tell us about the project" placeholder="a few lines about the place, the people, the light you have in mind…"></textarea>
+              <div class="letter-foot">
+                <p class="hand text-[1.05em] text-ink/60">yours, with good light —</p>
+                <button type="submit" class="btn">Send the letter <span aria-hidden="true">→</span></button>
+              </div>
+            </form>
+
+            <div data-form-done hidden class="letter">
+              <p class="hand text-[1.1em] text-ink/60">received with thanks —</p>
+              <p class="font-display text-[1.6em]">Thank you. <em class="text-amber">We’ll write back</em> soon.</p>
+              <p class="text-[15px] text-ink/70">This is a concept site, so nothing was actually sent — but in real life, Noor would be reading your letter by tomorrow.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="relative space-y-16 md:col-span-4 md:mt-6">
+        <div class="relative">
+          <Print id={78} w={900} h={1150} alt="The wooden door of the Lumen studio" tilt={2.6} mediaClass="aspect-[4/5] w-full" border={13} bottom={70} caption="the door — knock twice" cursor={false} />
+          <Tape class="-top-3 left-1/2 -ml-[56px]" rot={-4} w={112} tone="rose" />
+          <Stamp class="absolute -right-8 -top-12 hidden md:block" rot={14} size={104} />
+        </div>
+
+        <!-- an index card with the studio details, written in by hand -->
+        <div class="relative rotate-[-1.5deg]">
+          <Clip class="-top-7 right-10" rot={8} size={60} />
+          <dl class="index-card px-6 pb-6 pt-14">
+            <div><dt>write</dt><dd><a href={`mailto:${STUDIO.email}`} class="link-line">{STUDIO.email}</a></dd></div>
+            <div><dt>call</dt><dd>{STUDIO.phone}</dd></div>
+            <div><dt>visit</dt><dd>{STUDIO.address[0]}, {STUDIO.address[1]}</dd></div>
+            <div><dt>hours</dt><dd>{STUDIO.hours}</dd></div>
+            <div><dt>now</dt><dd><span data-clock={STUDIO.timezone}>--:--</span> in {STUDIO.city}</dd></div>
+            <div><dt>follow</dt><dd class="flex flex-wrap gap-x-4">{SOCIAL.map(s => <a href={s.href} class="link-line">{s.name}</a>)}</dd></div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 03 · FAQ ============ -->
+  <section class="relative px-5 pb-32 md:px-12 md:pb-44">
+    <div class="entry mb-14">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 02 <span class="text-ink/45">— questions people ask</span></p>
+      <p class="label">p. 02</p>
+    </div>
+    <div class="grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <h2 class="font-display text-[11vw] leading-[.95] tracking-[-.02em] md:text-[4.4vw]" data-split>Good to <em>know.</em></h2>
+        <p class="hand mt-4 rotate-[-2deg] text-[24px] text-ink/60" data-reveal>(tap a question)</p>
+      </div>
+      <div class="md:col-span-7 md:col-start-6">
+        {faqs.map((f, i) => (
+          <details class="group py-4" data-reveal>
+            <summary class="flex cursor-pointer list-none items-baseline gap-5 font-display text-[7vw] leading-tight md:text-[2.3vw]">
+              <span class="hand w-10 shrink-0 text-[26px] text-[#c4453f]">Q{i + 1}.</span>
+              <span class="flex-1">{f.q}</span>
+              <span class="hand text-[34px] text-pen transition-transform duration-500 group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="ml-[60px] mt-4 max-w-[560px] text-[15px] leading-relaxed text-ink/70">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Base>

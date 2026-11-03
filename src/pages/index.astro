@@ -1,0 +1,283 @@
+---
+import Base from '../layouts/Base.astro';
+import Print from '../components/Print.astro';
+import Tape from '../components/Tape.astro';
+import Clip from '../components/Clip.astro';
+import Stamp from '../components/Stamp.astro';
+import { HERO, WORK, SERVICES, STATS, CLIENTS, photo } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pad = n => String(n).padStart(2, '0');
+const slides = JSON.stringify(HERO.map(h => photo(h.id, 2000, 1250)));
+const today = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+// each print on the gallery page leans a little differently, like it was taped in by hand
+const TILTS = [-2, 1.6, -1.2, 2.2, -1.8, 1.1, -2.4, 1.5];
+const TONES = ['amber', 'mint', 'rose', 'kraft'];
+---
+<Base title="Lumen — Photography studio, Lisbon" description="Lumen is a small photography studio in Lisbon chasing honest light: portraits, landscape, architecture and editorial." page="home">
+
+  <!-- ============ PAGE 01 · HERO ============ -->
+  <section class="relative px-5 pt-24 md:px-12 md:pt-28">
+    <div class="entry mb-6 md:mb-8">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 01 <span class="hidden text-ink/45 md:inline">— about the light</span></p>
+      <p class="hand text-[19px] text-ink/50 md:text-[24px]"><span class="md:hidden">Lisbon</span><span class="hidden md:inline">Lisbon, {today}</span></p>
+    </div>
+
+    <div class="relative flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+      <h1 class="font-display text-[29vw] leading-[.8] tracking-[-.035em] md:text-[15.5vw]" aria-label="Light, kept.">
+        <span class="block overflow-hidden pb-[.2em] -mb-[.2em] pr-[.04em]" aria-hidden="true"><span class="block" data-hero-in>Light,</span></span>
+        <span class="block overflow-hidden pb-[.2em] -mb-[.2em] pl-[.6em] pr-[.06em]" aria-hidden="true"><em class="block" data-hero-in>kept.</em></span>
+      </h1>
+
+      <!-- the right-hand side of the page: a taped polaroid, the intro and the studio stamp -->
+      <div class="relative flex items-end gap-10 md:w-[42%] md:justify-end md:pb-[1vw]">
+        <div class="relative hidden w-[210px] shrink-0 md:block" data-reveal="0.9">
+          <Print id={173} w={700} h={800} alt="Morning light over a field" tilt={4} mediaClass="aspect-[7/8] w-full" caption="6:12am, worth it" border={11} cursor={false} />
+          <Tape class="-top-3 left-1/2 -ml-[52px]" rot={-6} w={104} />
+        </div>
+        <div class="relative max-w-[300px]">
+          <Stamp class="absolute -right-2 -top-[150px] hidden md:block" rot={-14} size={124} />
+          <p class="overflow-hidden"><span class="label block" data-hero-in>Photography studio — Lisbon</span></p>
+          <p class="mt-4 text-[15px] leading-relaxed text-ink/75" data-reveal="1">A small studio that waits for the good light, then makes portraits, landscapes and stories you’ll want to keep.</p>
+          <p class="hand mt-5 text-[24px]" data-reveal="1.15">— Elias &amp; the team</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- the big print, taped at the corners -->
+    <div class="relative mt-12 md:mt-16">
+      <div class="print" style="--pw:14px">
+        <figure class="gl-media h-[60vh] w-full md:h-[76vh]" data-gl data-slides={slides} aria-label="Featured photographs" data-cursor="lens">
+          <img src={photo(HERO[0].id, 2000, 1250)} alt={`${HERO[0].title}, ${HERO[0].place}`} crossorigin="anonymous" loading="eager" />
+        </figure>
+      </div>
+      <Tape class="-left-6 -top-2" rot={-32} w={140} />
+      <Tape class="-right-6 -top-2" rot={30} w={140} tone="mint" />
+      <Clip class="-bottom-7 right-[12%]" rot={8} size={70} />
+    </div>
+
+    <div class="mt-5 flex items-center justify-between">
+      <div class="relative h-8 w-[70%] overflow-hidden">
+        {HERO.map((h, i) => (
+          <p data-hero-caption class:list={['hero-cap hand absolute left-0 top-0 whitespace-nowrap text-[23px] transition-all duration-700', { 'is-on': i === 0 }]}>
+            <span class="text-ink/45">{pad(i + 1)} ·</span> {h.title} — {h.place}
+          </p>
+        ))}
+      </div>
+      <p class="label">p. 01</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 02 · STATEMENT, written on a sheet of notepaper ============ -->
+  <section class="relative px-5 py-28 md:px-12 md:py-40">
+    <div class="entry mb-14">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 02 <span class="text-ink/45">— what we believe</span></p>
+      <p class="label">p. 02</p>
+    </div>
+
+    <div class="relative md:rotate-[-.6deg]">
+      <Clip class="-top-8 left-[7%]" rot={-4} size={80} />
+      <Tape class="-right-4 -top-2 hidden md:block" rot={24} w={150} tone="mint" />
+      <div class="notepaper-shadow">
+      <div class="notepaper px-6 pb-12 pt-16 md:pb-16 md:pl-[110px] md:pr-20 md:pt-24">
+        <p class="hand absolute right-8 top-6 hidden rotate-[4deg] text-[27px] md:block" data-reveal="0.3">this is the whole idea ↓</p>
+
+        <p class="font-display text-[11vw] leading-[1.06] tracking-[-.025em] md:text-[6vw]" data-split data-statement>
+          We are a small studio that chases <span class="pill group/pill relative mx-[.12em] inline-block align-[-.08em]" data-nosplit data-cursor="Look"><span class="block h-[.72em] w-[1.6em] overflow-hidden rounded-full"><img src={photo(16, 600, 240)} alt="" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover/pill:scale-125" crossorigin="anonymous" /></span><span class="pill__pop pointer-events-none absolute top-[calc(100%+.22em)] left-1/2 z-20 w-[clamp(170px,15vw,230px)] border-[8px] border-b-[38px] border-white bg-white opacity-0 shadow-[0_22px_40px_-20px_rgba(40,30,10,.35)] transition-[opacity,translate] duration-500 ease-out-expo translate-y-3 group-hover/pill:translate-y-0 group-hover/pill:opacity-100" style="transform:translateX(-50%) rotate(-4deg)"><img src={photo(16, 460, 340)} alt="" loading="lazy" decoding="async" class="block aspect-[4/3] w-full object-cover" crossorigin="anonymous" /><span class="hand absolute -bottom-[31px] left-0 right-0 truncate text-center text-[20px] text-ink/75">Atlantic coast, 7am</span><span class="tape absolute -top-3 left-1/2 -ml-[38px]" style="--tw:76px;--rot:-4deg;height:22px" aria-hidden="true"></span></span></span>
+          <span class="hl" data-hl>honest light</span> — across coastlines, city nights and <span class="hl" data-hl>quiet</span> <span class="pill group/pill relative mx-[.12em] inline-block align-[-.08em]" data-nosplit data-cursor="Look"><span class="block h-[.72em] w-[1.6em] overflow-hidden rounded-full"><img src={photo(65, 600, 240)} alt="" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover/pill:scale-125" crossorigin="anonymous" /></span><span class="pill__pop pointer-events-none absolute top-[calc(100%+.22em)] left-1/2 z-20 w-[clamp(170px,15vw,230px)] border-[8px] border-b-[38px] border-white bg-white opacity-0 shadow-[0_22px_40px_-20px_rgba(40,30,10,.35)] transition-[opacity,translate] duration-500 ease-out-expo translate-y-3 group-hover/pill:translate-y-0 group-hover/pill:opacity-100" style="transform:translateX(-50%) rotate(3deg)"><img src={photo(65, 460, 340)} alt="" loading="lazy" decoding="async" class="block aspect-[4/3] w-full object-cover" crossorigin="anonymous" /><span class="hand absolute -bottom-[31px] left-0 right-0 truncate text-center text-[20px] text-ink/75">Noor, between takes</span><span class="tape absolute -top-3 left-1/2 -ml-[38px]" style="--tw:76px;--rot:-4deg;height:22px" aria-hidden="true"></span></span></span>
+          <span class="hl" data-hl>faces</span> — and turns it into pictures worth
+          <em class="relative inline-block text-amber">keeping.<svg class="pointer-events-none absolute -bottom-[.12em] left-0 h-[.3em] w-full overflow-visible" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path data-draw d="M3 14 C 40 4, 80 18, 120 9 S 180 6, 197 12" fill="none" stroke="#c4453f" stroke-width="3" stroke-linecap="round" /></svg></em>
+        </p>
+
+        <div class="mt-14 flex flex-wrap items-end justify-between gap-8">
+          <div class="flex flex-wrap items-center gap-6" data-reveal>
+            <a href={`${base}/about`} class="btn">About the studio <span aria-hidden="true">→</span></a>
+            <a href="#work" class="btn-line">see selected work</a>
+          </div>
+          <p class="hand rotate-[-3deg] text-[34px]" data-reveal="0.2">— E. Varga</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 03 · SELECTED WORK (pinned, horizontal on desktop) ============ -->
+  <section id="work" class="relative md:h-screen md:overflow-hidden" data-hscroll>
+    <div class="flex flex-col gap-20 px-5 pt-10 md:h-full md:flex-row md:items-center md:gap-[5vw] md:px-12 md:pt-0 md:will-change-transform" data-hscroll-track>
+      <div class="shrink-0 md:w-[30vw]">
+        <p class="hand text-[22px] md:text-[27px]">Entry Nº 03 <span class="text-ink/45">— recent frames</span></p>
+        <h2 class="mt-5 font-display text-[16vw] leading-[.86] tracking-[-.03em] md:text-[7vw]" data-split>Recent <em>frames.</em></h2>
+        <p class="mt-6 max-w-[320px] text-[15px] leading-relaxed text-ink/70" data-reveal>Eight pictures from the last two years of commissions and personal walks, taped in as they were printed.</p>
+        <p class="hand mt-6 hidden text-[23px] text-ink/60 md:block" data-reveal>scroll sideways →</p>
+      </div>
+
+      {WORK.map((w, i) => {
+        const portrait = w.o === 'p';
+        return (
+          <article class:list={['relative shrink-0', portrait ? 'md:w-[44vh]' : 'md:w-[76vh]', i % 2 ? 'md:mt-[14vh]' : 'md:-mt-[10vh]']}
+            data-lb-item data-lb-src={portrait ? photo(w.id, 1350, 1800) : photo(w.id, 2100, 1400)}
+            data-lb-title={w.title} data-lb-meta={`${w.cat} · ${w.place}, ${w.year}`}>
+            <button type="button" class="block w-full text-left" aria-label={`Open ${w.title} full size`} data-lb-open>
+              <Print id={w.id} w={portrait ? 900 : 1500} h={portrait ? 1200 : 1000} alt={`${w.title}, ${w.place}`}
+                tilt={TILTS[i]} mediaClass={portrait ? 'aspect-[3/4] w-full' : 'aspect-[3/2] w-full'} border={11} cursor="Open" />
+            </button>
+            {i % 3 === 1
+              ? <Clip class="-top-7 left-8" rot={-4} size={66} />
+              : <Tape class="-top-3 left-1/2 -ml-[56px]" rot={TILTS[i] * 2 - 3} w={112} tone={TONES[i % 4]} />}
+            <div class="mt-5 flex items-baseline justify-between gap-4" style={`transform:rotate(${TILTS[i] * 0.4}deg)`}>
+              <p class="hand text-[26px] leading-none"><span class="text-ink/40">{pad(i + 1)}</span> {w.title}</p>
+              <p class="text-[12px] text-mute">{w.cat} · {w.place}, {w.year}</p>
+            </div>
+          </article>
+        );
+      })}
+
+      <div class="flex shrink-0 flex-col justify-center pb-10 md:w-[26vw] md:pb-0">
+        <p class="font-display text-[10vw] leading-[.9] md:text-[4.4vw]">Like what<br /><em>you see?</em></p>
+        <p class="hand mt-4 text-[24px] text-ink/60">there are more in the archive…</p>
+        <a href={`${base}/contact`} class="btn mt-8 self-start">Start a project <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <!-- progress -->
+    <div class="absolute bottom-8 left-12 right-12 hidden items-center gap-6 md:flex">
+      <p class="label">p. 03</p>
+      <div class="h-px flex-1 bg-ink/10"><div class="h-full origin-left bg-ink" data-hscroll-bar></div></div>
+    </div>
+  </section>
+
+  <!-- ============ LIGHTBOX (opened from Recent frames) ============ -->
+  <div id="lightbox" class="fixed inset-0 z-[55] hidden text-paper" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div data-lb-bg class="absolute inset-0 bg-ink"></div>
+    <!-- click zones: left half = previous, right half = next -->
+    <button type="button" data-lb-prev class="absolute inset-y-0 left-0 z-[1] w-1/2" data-cursor="Prev" aria-label="Previous photo"></button>
+    <button type="button" data-lb-next class="absolute inset-y-0 right-0 z-[1] w-1/2" data-cursor="Next" aria-label="Next photo"></button>
+    <img data-lb-img alt="" class="pointer-events-none absolute left-0 top-0 z-[2] origin-center object-cover will-change-transform" />
+
+    <div data-lb-ui class="pointer-events-none absolute inset-0 z-[3] flex flex-col justify-between px-5 py-5 md:px-10 md:py-7">
+      <div class="flex items-center justify-between text-[13px]">
+        <p class="font-display text-[28px] leading-none">Lumen<span class="align-super text-[11px]">®</span></p>
+        <p class="tabular-nums text-paper/60"><span data-lb-index class="text-paper">01</span> / {pad(WORK.length)}</p>
+        <button type="button" data-lb-close class="link-line pointer-events-auto" data-cursor="Close">Close</button>
+      </div>
+      <div class="flex items-end justify-between gap-6">
+        <div class="overflow-hidden">
+          <p data-lb-title class="font-display text-[9vw] italic leading-[1.05] md:text-[3.2vw]"></p>
+          <p data-lb-meta class="mt-1 text-[13px] text-paper/60"></p>
+        </div>
+        <p class="hidden text-[12px] text-paper/50 md:block">← → to browse · Esc to close</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 04 · WHAT WE SHOOT, as the diary's contents page ============ -->
+  <section class="relative px-5 py-32 md:px-12 md:py-44">
+    <div class="entry mb-12">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 04 <span class="text-ink/45">— contents</span></p>
+      <p class="label">p. 04</p>
+    </div>
+    <div class="mb-10 flex items-end justify-between">
+      <h2 class="font-display text-[12vw] leading-[.9] tracking-[-.02em] md:text-[5.6vw]" data-split>What we <em>shoot.</em></h2>
+      <p class="hand hidden rotate-[-3deg] text-[26px] md:block">(five things we love)</p>
+    </div>
+    <ul data-hover-list>
+      {SERVICES.map((s, i) => (
+        <li data-hover-index={i} class="group">
+          <a href={`${base}/contact`} class="flex items-baseline gap-4 py-5 md:gap-6 md:py-6" data-cursor="Book">
+            <span class="hand w-10 shrink-0 text-[26px] text-ink/45 transition-colors duration-500 group-hover:text-[#c4453f]">{pad(i + 1)}.</span>
+            <span data-hover-name class="relative flex-1 font-display text-[11vw] leading-none tracking-[-.02em] transition-[transform,font-style] duration-700 ease-out-expo group-hover:translate-x-3 group-hover:italic md:flex-none md:text-[5vw]">
+              {s.name}
+              <!-- pen underline that draws in on hover -->
+              <svg class="row-underline pointer-events-none absolute -bottom-[.08em] left-0 h-[.22em] w-full overflow-visible" viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M1 8 C 18 3, 40 10, 60 6 S 90 4, 99 7" pathLength="1" fill="none" stroke="#c4453f" stroke-width="2.4" stroke-linecap="round" /></svg>
+            </span>
+            <!-- dotted leader, sitting on the words' baseline -->
+            <span class="mx-3 hidden flex-1 self-end border-b-[2.5px] border-dotted border-ink/25 pb-[.55em] transition-colors duration-500 group-hover:border-[#c4453f]/50 md:block" aria-hidden="true"></span>
+            <span data-hover-note class="hand hidden text-[27px] text-ink/70 md:block">{s.note}</span>
+            <span class="hand w-16 shrink-0 text-right text-[24px] tabular-nums text-ink/45">p. {pad(i * 4 + 6)}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <!-- a taped print that follows the pointer along the dotted leaders -->
+    <div data-hover-float class="pointer-events-none fixed left-0 top-0 z-30 hidden h-[300px] w-[240px] md:block" style="visibility:hidden">
+      <div data-hover-frame class="relative h-full w-full overflow-hidden border-[9px] border-white shadow-[0_20px_40px_-18px_rgba(40,30,10,.5)]">
+        {SERVICES.map((s, i) => (
+          <img src={photo(s.id, 640, 800)} alt="" data-hover-img={i} loading="eager" decoding="async"
+            class="absolute inset-0 h-full w-full scale-110 object-cover opacity-0" />
+        ))}
+      </div>
+      <Tape class="-top-3 left-1/2 -ml-[48px]" rot={-5} w={96} tone="rose" />
+    </div>
+  </section>
+
+  <!-- ============ PAGE 05 · THE STUDIO + NUMBERS ============ -->
+  <section class="relative px-5 pb-32 md:px-12 md:pb-44">
+    <div class="entry mb-14">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 05 <span class="text-ink/45">— the studio</span></p>
+      <p class="label">p. 05</p>
+    </div>
+    <div class="grid gap-16 md:grid-cols-12 md:gap-10">
+      <div class="relative md:col-span-5 md:pr-6">
+        <Print id={91} w={900} h={1150} alt="Elias Varga, founder of Lumen, with his camera" tilt={-2} mediaClass="aspect-[4/5] w-full" border={13} bottom={70} caption="Elias, on a slow Sunday" cursor="About" />
+        <Clip class="-top-8 left-[14%]" rot={-6} size={76} />
+        <!-- sticky note -->
+        <div class="absolute -right-4 bottom-[18%] w-[170px] rotate-[5deg] bg-[#fde68a] p-4 shadow-[0_14px_24px_-14px_rgba(40,30,10,.5)] md:-right-10">
+          <p class="hand text-[25px] leading-[1.1] text-ink/85">est. 2014 —<br />still waiting<br />for the light ✶</p>
+        </div>
+      </div>
+      <div class="flex flex-col justify-between md:col-span-6 md:col-start-7">
+        <div>
+          <p class="label">(The studio)</p>
+          <h2 class="mt-6 font-display text-[11vw] leading-[.95] tracking-[-.02em] md:text-[4.4vw]" data-split>Twelve years of waiting for the <em>right twenty minutes.</em></h2>
+          <p class="mt-8 max-w-[480px] text-[16px] leading-relaxed text-ink/70" data-reveal>Founded by photographer Elias Varga, Lumen works with magazines, hotels and people who care how a picture feels, not just how it looks. We shoot on film and digital, and print everything we love.</p>
+        </div>
+        <dl class="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 border-t-[1.5px] border-dashed border-ink/15 pt-10">
+          {STATS.map(s => (
+            <div data-reveal>
+              <dt class="sr-only">{s.label}</dt>
+              <dd class="font-display text-[16vw] leading-none md:text-[5vw]"><span data-count={s.n}>{s.n}</span>{s.suffix}</dd>
+              <p class="hand mt-2 text-[22px] text-ink/60">{s.label}</p>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENTS, along a strip of tape ============ -->
+  <section class="relative overflow-hidden py-10" aria-label="Clients">
+    <div class="tape-band py-7">
+      <div class="marquee-track flex w-max items-center gap-14 whitespace-nowrap font-display text-[9vw] leading-none md:text-[3.6vw]">
+        {[...CLIENTS, ...CLIENTS].map((c, i) => (
+          <span class="flex items-center gap-14"><span class:list={{ italic: i % 2 === 1 }}>{c}</span><span class="text-[.45em] text-[#c4453f]">✶</span></span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 06 · A NOTE FROM A CLIENT ============ -->
+  <section class="relative px-5 py-32 md:px-12 md:py-44">
+    <div class="entry mb-14">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 06 <span class="text-ink/45">— a note we kept</span></p>
+      <p class="label">p. 06</p>
+    </div>
+    <div class="grid items-center gap-16 md:grid-cols-12">
+      <!-- a torn notepaper sheet, clipped to the page (the clip sits outside the torn-edge crop) -->
+      <div class="relative rotate-[-1.2deg] md:col-span-7">
+      <Clip class="-top-7 left-10" rot={-3} size={72} />
+      <div class="notepaper-shadow">
+      <blockquote class="notepaper px-7 pb-10 pt-14 md:pb-14 md:pl-[90px] md:pr-14 md:pt-16">
+        <p class="font-display text-[8.5vw] leading-[1.1] tracking-[-.015em] md:text-[3.2vw]" data-split>“They waited three days for the fog to lift over the bay — and the cover was worth every hour of it.”</p>
+        <footer class="mt-8 flex items-end justify-between gap-6" data-reveal>
+          <p class="text-[14px]"><span class="font-medium">Ana Ferreira</span> <span class="text-mute">— Creative director, Northbound Magazine</span></p>
+          <p class="hand shrink-0 rotate-[-4deg] text-[30px]">Ana F.</p>
+        </footer>
+      </blockquote>
+      </div>
+      </div>
+      <div class="relative md:col-span-4 md:col-start-9">
+        <Print id={74} w={800} h={1000} alt="Fog lifting over a bay at dawn" tilt={3} mediaClass="aspect-[4/5] w-full" caption="the bay, day three" border={12} />
+        <Tape class="-top-3 left-1/2 -ml-[56px]" rot={-3} w={112} tone="kraft" />
+      </div>
+    </div>
+  </section>
+
+</Base>

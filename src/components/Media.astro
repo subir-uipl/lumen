@@ -1,0 +1,19 @@
+---
+// A photo slot. The <img> is a normal fallback; when WebGL is available the same image is drawn
+// as a distortable plane exactly over this box, and the <img> fades out.
+import { photo } from '../data/site.js';
+
+interface Props {
+  id: number;
+  w?: number;
+  h?: number;
+  alt: string;
+  class?: string;
+  cursor?: string | false;
+  eager?: boolean;
+}
+const { id, w = 1600, h = 1067, alt, class: cls = '', cursor = 'View', eager = false } = Astro.props;
+---
+<figure class={`gl-media ${cls}`} data-gl data-cursor={cursor || undefined}>
+  <img src={photo(id, w, h)} alt={alt} width={w} height={h} crossorigin="anonymous" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+</figure>

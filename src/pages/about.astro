@@ -1,0 +1,202 @@
+---
+import Base from '../layouts/Base.astro';
+import Print from '../components/Print.astro';
+import Tape from '../components/Tape.astro';
+import Clip from '../components/Clip.astro';
+import Stamp from '../components/Stamp.astro';
+import { PROCESS, TEAM, STATS } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const TONES = ['amber', 'mint', 'rose', 'kraft'];
+const PROCESS_TILT = [-2.4, 1.8, -1.2, 2.2];
+const TEAM_TILT = [-2, 1.6, -1.4];
+// clients as the business cards they left with us, each in its own house style
+const CARDS = [
+  { name: 'Northbound', sub: 'Magazine', note: 'editorial · since 2016', look: 'caps', paper: '#ffffff', rot: -3, pin: 'tape', tone: 'amber' },
+  { name: 'Atelier Rue', sub: 'Paris', note: 'lookbooks · 2019 —', look: 'italic', paper: '#fffbf1', rot: 2.2, pin: 'clip' },
+  { name: 'Field & Form', sub: 'Architects', note: 'buildings · 2018 —', look: 'amp', paper: '#ecdcbf', rot: -1.4, pin: 'none' },
+  { name: 'Saltwater', sub: 'Hotels', note: 'campaigns · 2020 —', look: 'serif', paper: '#eef3fb', rot: 3, pin: 'tape', tone: 'mint' },
+  { name: 'Kestrel Press', sub: 'Publishers', note: 'book covers · 2017 —', look: 'dark', paper: '#1c1a17', rot: 1.6, pin: 'clip' },
+  { name: 'Maison Oaky', sub: 'Interiors', note: 'interiors · 2021 —', look: 'italic', paper: '#ffffff', rot: -2.6, pin: 'none' },
+  { name: 'the slow journal', sub: 'quarterly', note: 'essays · 2015 —', look: 'lower', paper: '#fffbf1', rot: 2.4, pin: 'tape', tone: 'rose' },
+  { name: 'Arbor', sub: 'Studio', note: 'gardens · 2022 —', look: 'caps', paper: '#eef5ef', rot: -1.8, pin: 'tape', tone: 'kraft' }
+];
+---
+<Base title="About — Lumen photography studio" description="Lumen is a small Lisbon photography studio founded by Elias Varga: how we work, who we are and who we work with." page="about">
+
+  <!-- ============ PAGE 01 · HERO ============ -->
+  <section class="relative px-5 pt-24 md:px-12 md:pt-28">
+    <div class="entry mb-6 md:mb-8">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 01 <span class="hidden text-ink/45 md:inline">— who we are</span></p>
+      <p class="hand text-[19px] text-ink/50 md:text-[24px]">Graça, Lisbon</p>
+    </div>
+
+    <div class="relative flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+      <h1 class="font-display text-[19vw] leading-[.84] tracking-[-.03em] md:text-[10.5vw]" aria-label="We chase light, not trends.">
+        <span class="block overflow-hidden pb-[.2em] -mb-[.2em] pr-[.04em]" aria-hidden="true"><span class="block" data-hero-in>We chase light,</span></span>
+        <span class="block overflow-hidden pb-[.2em] -mb-[.2em] pl-[.9em] pr-[.06em]" aria-hidden="true"><em class="block" data-hero-in>not trends.</em></span>
+      </h1>
+      <div class="relative max-w-[320px] md:pb-[1vw]">
+        <Stamp class="absolute -left-[170px] top-2 hidden md:block" rot={12} size={118} />
+        <p class="overflow-hidden"><span class="label block" data-hero-in>About the studio</span></p>
+        <p class="mt-4 text-[15px] leading-relaxed text-ink/75" data-reveal="1">Three people, a small darkroom and too many cameras, working out of an old bakery in Lisbon’s Graça district since 2014.</p>
+        <p class="hand mt-5 text-[24px]" data-reveal="1.15">— still smells of bread</p>
+      </div>
+    </div>
+
+    <div class="relative mt-12 md:mt-16">
+      <Print id={192} w={2000} h={1300} alt="The Lumen studio on a quiet morning, figures silhouetted against tall windows" mediaClass="h-[56vh] w-full md:h-[78vh]" border={14} cursor={false} />
+      <Tape class="-left-6 -top-2" rot={-30} w={140} tone="rose" />
+      <Tape class="-right-6 -top-2" rot={28} w={140} />
+      <Clip class="-bottom-7 left-[10%]" rot={-8} size={70} />
+    </div>
+    <div class="mt-5 flex items-center justify-between">
+      <p class="hand text-[23px]"><span class="text-ink/45">the studio ·</span> 8:40am, before the first client</p>
+      <p class="label">p. 01</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 02 · OUR STORY, on notepaper ============ -->
+  <section class="relative px-5 py-28 md:px-12 md:py-40">
+    <div class="entry mb-14">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 02 <span class="text-ink/45">— how it started</span></p>
+      <p class="label">p. 02</p>
+    </div>
+    <div class="grid items-start gap-16 md:grid-cols-12 md:gap-10">
+      <div class="relative md:col-span-7 md:rotate-[-.8deg]">
+        <Clip class="-top-8 left-10" rot={-4} size={76} />
+        <Tape class="-right-4 -top-2 hidden md:block" rot={22} w={130} tone="mint" />
+        <div class="notepaper-shadow">
+          <div class="notepaper px-7 pb-12 pt-16 md:pb-14 md:pl-[100px] md:pr-14 md:pt-20">
+            <p class="font-display text-[8.5vw] leading-[1.1] tracking-[-.015em] md:text-[3.1vw]" data-split>
+              Elias started Lumen with one rule: never photograph a place before you’ve <span class="hl" data-hl>watched the light</span> move through it.
+            </p>
+            <div class="mt-10 grid gap-8 text-[16px] leading-relaxed text-ink/70 md:grid-cols-2">
+              <p data-reveal>That rule still shapes every job. We scout early, wait longer than is sensible and keep our shoots small, so the people in front of the lens forget it’s there.</p>
+              <p data-reveal="0.15">Today we photograph for magazines, hotels, architects and families across 38 countries — and still print every project we’re proud of, by hand.</p>
+            </div>
+            <p class="hand mt-10 rotate-[-3deg] text-right text-[32px]" data-reveal="0.2">— E. Varga</p>
+          </div>
+        </div>
+      </div>
+      <div class="relative md:col-span-4 md:col-start-9 md:mt-10">
+        <Print id={91} w={900} h={1150} alt="Elias Varga, founder, holding his camera" tilt={2.4} mediaClass="aspect-[4/5] w-full" border={13} bottom={70} caption="Elias, the rule-maker" cursor={false} />
+        <Tape class="-top-3 left-1/2 -ml-[56px]" rot={-4} w={112} tone="kraft" />
+        <div class="absolute -left-6 bottom-[16%] w-[160px] rotate-[-6deg] bg-[#fde68a] p-4 shadow-[0_14px_24px_-14px_rgba(40,30,10,.5)] md:-left-12">
+          <p class="hand text-[24px] leading-[1.1] text-ink/85">rule nº 1:<br />watch first,<br />shoot later.</p>
+        </div>
+      </div>
+    </div>
+
+    <dl class="mt-20 grid grid-cols-2 gap-x-8 gap-y-10 border-t-[1.5px] border-dashed border-ink/15 pt-10 md:grid-cols-4">
+      {STATS.map(s => (
+        <div data-reveal>
+          <dt class="sr-only">{s.label}</dt>
+          <dd class="font-display text-[16vw] leading-none md:text-[5vw]"><span data-count={s.n}>{s.n}</span>{s.suffix}</dd>
+          <p class="hand mt-2 text-[22px] text-ink/60">{s.label}</p>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- ============ PAGE 03 · HOW WE WORK, four taped prints ============ -->
+  <section class="relative px-5 pb-28 md:px-12 md:pb-40">
+    <div class="entry mb-12">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 03 <span class="text-ink/45">— the method</span></p>
+      <p class="label">p. 03</p>
+    </div>
+    <div class="mb-16 flex items-end justify-between">
+      <h2 class="font-display text-[13vw] leading-[.9] tracking-[-.02em] md:text-[5.6vw]" data-split>How we <em>work.</em></h2>
+      <p class="hand hidden rotate-[-3deg] text-[26px] md:block">(four steps, always in this order)</p>
+    </div>
+    <ol class="grid gap-16 md:grid-cols-4 md:gap-10">
+      {PROCESS.map((p, i) => (
+        <li class:list={['relative', { 'md:mt-20': i % 2 === 1 }]}>
+          <div class="relative">
+            <Print id={p.id} w={800} h={1000} alt={p.title} tilt={PROCESS_TILT[i]} mediaClass="aspect-[4/5] w-full" border={11} cursor={false} />
+            {i % 2 === 0
+              ? <Tape class="-top-3 left-1/2 -ml-[50px]" rot={PROCESS_TILT[i] * 2} w={100} tone={TONES[i]} />
+              : <Clip class="-top-7 right-8" rot={6} size={64} />}
+          </div>
+          <div class="mt-6 flex items-baseline gap-3" data-reveal>
+            <span class="hand text-[26px] text-[#c4453f]">{p.n}.</span>
+            <h3 class="font-display text-[34px] italic leading-none">{p.title}</h3>
+          </div>
+          <p class="mt-3 text-[15px] leading-relaxed text-ink/70" data-reveal="0.1">{p.text}</p>
+          {i < PROCESS.length - 1 && <p class="hand absolute -right-8 top-[38%] hidden text-[30px] text-ink/40 md:block" aria-hidden="true">→</p>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ============ PAGE 04 · THE PEOPLE ============ -->
+  <section class="relative px-5 pb-28 md:px-12 md:pb-40">
+    <div class="entry mb-12">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 04 <span class="text-ink/45">— the people</span></p>
+      <p class="label">p. 04</p>
+    </div>
+    <div class="mb-16 flex items-end justify-between">
+      <h2 class="font-display text-[12vw] leading-[.9] tracking-[-.02em] md:text-[5.6vw]" data-split>The <em>people.</em></h2>
+      <p class="hand hidden rotate-[-3deg] text-[26px] md:block">(small on purpose)</p>
+    </div>
+    <div class="grid gap-16 md:grid-cols-3 md:gap-14">
+      {TEAM.map((t, i) => (
+        <div class:list={['relative', { 'md:mt-16': i === 1 }]}>
+          <Print id={t.id} w={900} h={1100} alt={`${t.name}, ${t.role}`} tilt={TEAM_TILT[i]} mediaClass="aspect-[9/11] w-full" border={13} bottom={70} caption={t.name} cursor={false} />
+          {i === 1
+            ? <Clip class="-top-8 left-[14%]" rot={-5} size={74} />
+            : <Tape class="-top-3 left-1/2 -ml-[56px]" rot={TEAM_TILT[i] * 2} w={112} tone={TONES[i + 1]} />}
+          <p class="mt-7 text-center text-[13px] text-mute" data-reveal>{t.role}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ PAGE 05 · IN GOOD COMPANY, the business cards we kept ============ -->
+  <section class="relative px-5 pb-28 md:px-12 md:pb-40">
+    <div class="entry mb-12">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 05 <span class="text-ink/45">— cards we kept</span></p>
+      <p class="label">p. 05</p>
+    </div>
+    <div class="mb-16 grid gap-6 md:grid-cols-12 md:items-end">
+      <h2 class="font-display text-[12vw] leading-[.9] tracking-[-.02em] md:col-span-7 md:text-[5.6vw]" data-split>In good <em>company.</em></h2>
+      <p class="text-[15px] leading-relaxed text-ink/70 md:col-span-4 md:col-start-9" data-reveal>Every client leaves a card on the studio board. These are the people who have trusted us with their light, some of them for a decade.</p>
+    </div>
+
+    <ul class="relative grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-10 md:gap-y-16">
+      {CARDS.map((c, i) => (
+        <li class="relative" data-reveal={(i % 4) * 0.08}>
+          <div class:list={['bizcard', `bizcard--${c.look}`]} style={`--r:${c.rot}deg;background:${c.paper}`}>
+            <span class="bizcard__no">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <p class="bizcard__name">{c.look === 'amp' ? <>Field <span class="text-[#c4453f]">&amp;</span> Form</> : c.name}</p>
+              <p class="bizcard__sub">{c.sub}</p>
+            </div>
+            <p class="bizcard__note">{c.note}</p>
+          </div>
+          {c.pin === 'tape' && <Tape class="-top-3 left-1/2 -ml-[38px]" rot={c.rot * -2} w={76} tone={c.tone} />}
+          {c.pin === 'clip' && <Clip class="-top-6 right-12" rot={6} size={52} />}
+          {i === 0 && <p class="hand pointer-events-none absolute -top-12 right-0 hidden rotate-[4deg] text-[24px] text-[#c4453f] md:block">our first cover ✶</p>}
+          {i === 6 && <p class="hand pointer-events-none absolute -bottom-10 left-2 hidden rotate-[-3deg] text-[23px] text-ink/55 md:block">↑ the very first client</p>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="relative px-5 pb-36 text-center md:px-12 md:pb-48">
+    <div class="entry mb-20 text-left">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 06 <span class="text-ink/45">— your page</span></p>
+      <p class="label">p. 06</p>
+    </div>
+    <div class="relative mx-auto max-w-[1100px]">
+      <Stamp class="absolute -top-16 right-0 hidden md:block" text="NOW BOOKING · SPRING 2027 · " rot={-10} size={128} />
+      <p class="hand text-[26px] text-ink/60" data-reveal>this page is still blank…</p>
+      <h2 class="mt-6 font-display text-[14vw] leading-[.9] tracking-[-.03em] md:text-[7vw]" data-split>Have a place, a face or a story in <em>mind?</em></h2>
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-6" data-reveal>
+        <a href={`${base}/contact`} class="btn">Get in touch <span aria-hidden="true">→</span></a>
+        <a href={`${base}/#work`} class="btn-line">see the work</a>
+      </div>
+    </div>
+  </section>
+
+</Base>

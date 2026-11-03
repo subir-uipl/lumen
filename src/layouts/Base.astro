@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string; description: string; page: 'home' | 'about' | 'contact' | '404' }
+const { title, description, page } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = 'https://picsum.photos/id/177/1200/630';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en" data-page={page}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lumen" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://picsum.photos" />
+  <link rel="preconnect" href="https://fastly.picsum.photos" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body class="font-sans">
+  <!-- arriving from another page of the diary: the page is already shut, so skip the intro (set before first paint) -->
+  <script is:inline>try { if (sessionStorage.getItem('lumen-turn')) document.documentElement.classList.add('is-turning'); } catch (e) {}</script>
+  <!-- page curtain: a diary page that turns away on load and swings back in between pages -->
+  <div id="curtain" class="fixed inset-0 z-[60]" aria-hidden="true">
+    <div id="curtainPage" class="curtain-page absolute inset-0">
+      <div class="curtain-holes"></div>
+      <div class="absolute inset-x-0 top-0 flex items-baseline justify-between px-6 pt-6 md:px-14 md:pt-8">
+        <p class="hand text-[22px] md:text-[27px]">Entry Nº 00 <span class="text-ink/45">— opening the diary</span></p>
+        <p class="label hidden md:block">Lumen · Lisbon</p>
+      </div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <p class="relative font-display text-[22vw] leading-none tracking-[-.03em] md:text-[9vw]">
+          <span class="block overflow-hidden pb-[.1em]"><span id="curtainWord" class="block">Lumen</span></span>
+          <svg class="pointer-events-none absolute -bottom-[.02em] left-0 h-[.16em] w-full overflow-visible" viewBox="0 0 200 20" preserveAspectRatio="none"><path id="curtainLine" d="M4 12 C 50 4, 90 17, 130 9 S 185 7, 196 11" pathLength="1" fill="none" stroke="#c4453f" stroke-width="3" stroke-linecap="round" style="stroke-dasharray:1;stroke-dashoffset:1" /></svg>
+        </p>
+        <p id="curtainNote" class="hand mt-6 rotate-[-2deg] text-[24px] text-ink/60 md:text-[30px]">waiting for the light…</p>
+      </div>
+      <div class="curtain-shade absolute inset-0"></div>
+    </div>
+  </div>
+
+  <!-- diary binding: punched holes and mirrored margin rules, behind the photographs -->
+  <div class="diary-binding" aria-hidden="true"><div class="diary-holes"></div></div>
+
+  <!-- one WebGL canvas behind the content draws every photograph -->
+  <canvas id="gl" class="pointer-events-none fixed inset-0 z-0 h-screen w-screen" aria-hidden="true"></canvas>
+
+  <!-- custom cursor: a white disc in difference blend, so it inverts whatever is under it like a lens.
+       Black text inside the disc lets the original image show through as a cut-out. Mouse devices only. -->
+  <div id="cursor" class="pointer-events-none fixed left-0 top-0 z-[70] hidden mix-blend-difference" aria-hidden="true">
+    <div id="cursorDisc" class="-ml-[70px] -mt-[70px] flex h-[140px] w-[140px] scale-[.32] items-center justify-center rounded-full bg-white">
+      <span id="cursorLabel" class="text-[13px] font-semibold uppercase tracking-[.2em] text-black opacity-0"></span>
+    </div>
+  </div>
+
+  <Nav page={page} />
+  <main class="relative z-10">
+    <slot />
+  </main>
+  <Footer />
+
+  <script>
+    import '../scripts/app.js';
+  </script>
+</body>
+</html>

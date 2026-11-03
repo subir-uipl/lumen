@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Print from '../components/Print.astro';
+import Tape from '../components/Tape.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title="Page not found — Lumen" description="This page of the diary is missing." page="404">
+  <section class="relative px-5 pb-32 pt-24 md:px-12 md:pb-44 md:pt-28">
+    <div class="entry mb-14">
+      <p class="hand text-[22px] md:text-[27px]">Entry Nº 404 <span class="text-ink/45">— a missing page</span></p>
+      <p class="label">p. ??</p>
+    </div>
+    <div class="grid items-center gap-16 md:grid-cols-12">
+      <div class="md:col-span-7">
+        <h1 class="font-display text-[22vw] leading-[.84] tracking-[-.03em] md:text-[11vw]">
+          <span class="block overflow-hidden pb-[.12em]"><span class="block" data-hero-in>Torn</span></span>
+          <span class="block overflow-hidden pb-[.12em]"><em class="block md:pl-[.8em]" data-hero-in>out.</em></span>
+        </h1>
+        <p class="mt-8 max-w-[420px] text-[16px] leading-relaxed text-ink/70" data-reveal="0.8">This page isn’t in the diary any more — maybe it never was. The rest of the notebook is still here.</p>
+        <div class="mt-10 flex flex-wrap items-center gap-6" data-reveal="1">
+          <a href={`${base}/`} class="btn">Back to the start <span aria-hidden="true">→</span></a>
+          <a href={`${base}/contact`} class="btn-line">write to us</a>
+        </div>
+      </div>
+      <div class="relative mx-auto w-full max-w-[340px] md:col-span-4 md:col-start-9">
+        <Print id={1062} w={800} h={1000} alt="A pug wrapped in a blanket, looking unimpressed" tilt={4} mediaClass="aspect-[4/5] w-full" caption="he looked everywhere, too" border={12} cursor={false} />
+        <Tape class="-top-3 left-1/2 -ml-[56px]" rot={-5} w={112} tone="rose" />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,56 @@
+---
+// The back cover of the diary: grained leather, a stitched border, brass corners,
+// an elastic closure band, a ribbon bookmark and the wordmark debossed into the hide.
+import { STUDIO, SOCIAL } from '../data/site.js';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+---
+<footer class="leather relative z-10 overflow-hidden text-[#f3e6d3]">
+  <!-- ribbon bookmark hanging over the edge of the last page -->
+  <span class="ribbon" aria-hidden="true"></span>
+  <!-- elastic band that keeps the diary shut -->
+  <span class="elastic hidden md:block" aria-hidden="true"></span>
+  <!-- brass corner protectors -->
+  <span class="corner corner--tl" aria-hidden="true"></span>
+  <span class="corner corner--tr" aria-hidden="true"></span>
+
+  <div class="stitched relative mx-3 mt-3 md:mx-6 md:mt-6">
+    <div class="px-6 pt-20 md:pl-16 md:pr-[12%] md:pt-28">
+      <div class="grid gap-14 md:grid-cols-12">
+        <div class="md:col-span-7">
+          <p class="hand text-[24px] text-[#e8c79a]/80">Have a project in mind?</p>
+          <a href={`${base}/contact`} class="group mt-4 block font-display text-[13vw] leading-[.9] tracking-tight text-[#f8ecdb] md:text-[5.8vw]" data-split>
+            Let’s make something in <em class="text-[#e8b26a]">good light.</em>
+          </a>
+        </div>
+        <div class="grid grid-cols-2 gap-10 text-sm md:col-span-5 md:pt-14">
+          <div>
+            <p class="label !text-[#e8c79a]/55">Studio</p>
+            <p class="mt-4 leading-relaxed text-[#f3e6d3]/80">{STUDIO.address[0]}<br />{STUDIO.address[1]}</p>
+            <p class="hand mt-4 text-[22px] text-[#e8c79a]"><span data-clock={STUDIO.timezone}>--:--</span> in {STUDIO.city}</p>
+          </div>
+          <div>
+            <p class="label !text-[#e8c79a]/55">Say hello</p>
+            <a href={`mailto:${STUDIO.email}`} class="link-line mt-4 inline-block text-[#f8ecdb]">{STUDIO.email}</a>
+            <p class="mt-2 text-[#f3e6d3]/80">{STUDIO.phone}</p>
+            <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+              {SOCIAL.map(s => <a href={s.href} class="link-line text-[#f3e6d3]/80">{s.name}</a>)}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- the wordmark, pressed into the leather -->
+      <p aria-hidden="true" class="deboss pointer-events-none mt-16 select-none font-display leading-[.8] tracking-tighter md:mt-10" style="font-size:24vw">Lumen</p>
+
+      <div class="mt-6 flex flex-col gap-4 border-t border-dashed border-[#e8c79a]/25 py-6 text-xs text-[#f3e6d3]/55 md:flex-row md:items-center md:justify-between">
+        <nav class="flex gap-6" aria-label="Footer">
+          <a href={`${base}/`} class="link-line">Home</a>
+          <a href={`${base}/about`} class="link-line">About</a>
+          <a href={`${base}/contact`} class="link-line">Contact</a>
+        </nav>
+        <p>© {year} Lumen Studio · A concept demo · Photos via Unsplash / Lorem Picsum</p>
+      </div>
+    </div>
+  </div>
+</footer>

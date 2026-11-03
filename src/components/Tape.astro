@@ -1,0 +1,7 @@
+---
+// A strip of washi tape. Position it with `class` (absolute utilities); `rot` in degrees.
+interface Props { class?: string; rot?: number; tone?: 'amber' | 'mint' | 'rose' | 'kraft'; w?: number }
+const { class: cls = '', rot = -4, tone = 'amber', w } = Astro.props;
+const style = `--rot:${rot}deg;${w ? `--tw:${w}px;` : ''}`;
+---
+<span class:list={['tape', tone !== 'amber' && `tape--${tone}`, cls]} style={style} aria-hidden="true"></span>
